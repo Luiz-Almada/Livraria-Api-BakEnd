@@ -1,80 +1,80 @@
-import { connect } from './mongo.db.js';
-import LivroInfoSchema from '../schemas/livroInfo.schema.js';
+import { connect } from './mongo.db.js'
+import LivroInfoSchema from '../schemas/livroInfo.schema.js'
 
-async function createLivroInfo(livroInfo) {
+async function createLivroInfo (livroInfo) {
   try {
-    const mongoose = await connect();
-    const LivroInfo = mongoose.model("LivroInfo", LivroInfoSchema);
-    livroInfo = new LivroInfo(livroInfo);
-    await livroInfo.save();
+    const mongoose = await connect()
+    const LivroInfo = mongoose.model('LivroInfo', LivroInfoSchema)
+    livroInfo = new LivroInfo(livroInfo)
+    await livroInfo.save()
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function updateLivroInfo(livroInfo) {
+async function updateLivroInfo (livroInfo) {
   try {
-    const mongoose = await connect();
-    const LivroInfo = mongoose.model("LivroInfo", LivroInfoSchema);
-    await LivroInfo.findOneAndUpdate({ livroId: livroInfo.livroId }, livroInfo);
+    const mongoose = await connect()
+    const LivroInfo = mongoose.model('LivroInfo', LivroInfoSchema)
+    await LivroInfo.findOneAndUpdate({ livroId: livroInfo.livroId }, livroInfo)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getLivroInfo(livroId) {
+async function getLivroInfo (livroId) {
   try {
-    const mongoose = await connect();
-    const LivroInfo = mongoose.model("LivroInfo", LivroInfoSchema);
-    const query = LivroInfo.findOne({ livroId });
-    return await query.exec();
+    const mongoose = await connect()
+    const LivroInfo = mongoose.model('LivroInfo', LivroInfoSchema)
+    const query = LivroInfo.findOne({ livroId })
+    return await query.exec()
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function createAvaliacao(avaliacao, livroId) {
+async function createAvaliacao (avaliacao, livroId) {
   try {
-    const livroInfo = await getLivroInfo(livroId);
-    livroInfo.avaliacoes.push(avaliacao);
-    await updateLivroInfo(livroInfo)  ;
+    const livroInfo = await getLivroInfo(livroId)
+    livroInfo.avaliacoes.push(avaliacao)
+    await updateLivroInfo(livroInfo)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function deleteAvaliacao(livroId, index) {
+async function deleteAvaliacao (livroId, index) {
   try {
-    const livroInfo = await getLivroInfo(livroId);
-    livroInfo.avaliacoes.splice(index, 1);
-    await updateLivroInfo(livroInfo)  ;
+    const livroInfo = await getLivroInfo(livroId)
+    livroInfo.avaliacoes.splice(index, 1)
+    await updateLivroInfo(livroInfo)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getLivrosInfo() {
+async function getLivrosInfo () {
   try {
-    const mongoose = await connect();
-    const LivroInfo = mongoose.model("LivroInfo", LivroInfoSchema);
-    const query = LivroInfo.find({});
-    return await query.exec();
+    const mongoose = await connect()
+    const LivroInfo = mongoose.model('LivroInfo', LivroInfoSchema)
+    const query = LivroInfo.find({})
+    return await query.exec()
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function deleteLivroInfo(livroId) {
+async function deleteLivroInfo (livroId) {
   try {
-    const mongoose = await connect();
-    const LivroInfo = mongoose.model("LivroInfo", LivroInfoSchema);
-    await LivroInfo.deleteOne({ livroId });
+    const mongoose = await connect()
+    const LivroInfo = mongoose.model('LivroInfo', LivroInfoSchema)
+    await LivroInfo.deleteOne({ livroId })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-export default { 
+export default {
   createLivroInfo,
   updateLivroInfo,
   getLivroInfo,
@@ -82,4 +82,4 @@ export default {
   deleteAvaliacao,
   getLivrosInfo,
   deleteLivroInfo
-};
+}

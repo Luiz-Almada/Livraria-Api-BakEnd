@@ -1,51 +1,51 @@
-import Autor from "../models/autor.model.js";
+import Autor from '../models/autor.model.js'
 
-async function insertAutor(autor) {
+async function insertAutor (autor) {
   try {
-    return await Autor.create(autor);
+    return await Autor.create(autor)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getAutores() {
+async function getAutores () {
   try {
-    return await Autor.findAll();
+    return await Autor.findAll()
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getAutor(id) {
+async function getAutor (id) {
   try {
-    return await Autor.findByPk(id);
+    return await Autor.findByPk(id)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function deleteAutor(id) {
+async function deleteAutor (id) {
   try {
     await Autor.destroy({
       where: {
-        autorId: id,
-      },
-    });
+        autorId: id
+      }
+    })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function updateAutor(autor) {
+async function updateAutor (autor) {
   try {
     await Autor.update(autor, {
       where: {
-        autorId: autor.autorId,
-      },
-    });
-    return await getAutor(autor.autorId);
+        autorId: autor.autorId
+      }
+    })
+    return await getAutor(autor.autorId)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
@@ -54,5 +54,5 @@ export default {
   getAutores,
   getAutor,
   updateAutor,
-  deleteAutor,
-};
+  deleteAutor
+}

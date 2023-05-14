@@ -1,37 +1,37 @@
-import Sequelize from "sequelize";
-import db from "../repositories/db.js";
+import Sequelize from 'sequelize'
+import db from '../repositories/db.js'
 
 const Cliente = db.define(
-  "clientes",
+  'clientes',
   {
     clienteId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     nome: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     senha: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     telefone: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     endereco: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   },
   { underscored: true }
-);
+)
 
-export default Cliente;
+export default Cliente

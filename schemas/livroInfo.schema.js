@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import AvaliacaoSchema from './avaliacao.schema.js';
+import mongoose from 'mongoose'
+import AvaliacaoSchema from './avaliacao.schema.js'
 
 const LivroInfoSchema = new mongoose.Schema(
   {
@@ -9,7 +9,7 @@ const LivroInfoSchema = new mongoose.Schema(
     editora: String,
     avaliacoes: [AvaliacaoSchema]
 
-  }, { collection: "livroInfo"}
-);
+  }, { collection: 'livroInfo' }
+)
 
-export default LivroInfoSchema;
+export default LivroInfoSchema

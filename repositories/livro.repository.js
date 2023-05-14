@@ -1,67 +1,67 @@
-import Livro from "../models/livro.model.js";
-import Autor from "../models/autor.model.js";
+import Livro from '../models/livro.model.js'
+import Autor from '../models/autor.model.js'
 
-async function insertLivro(livro) {
+async function insertLivro (livro) {
   try {
-    return await Livro.create(livro);
+    return await Livro.create(livro)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getLivros() {
+async function getLivros () {
   try {
-    //return await Livro.findAll();
+    // return await Livro.findAll();
     return await Livro.findAll({
       include: [
         {
           model: Autor
-        },
-      ],
-    });    
+        }
+      ]
+    })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getLivro(id) {
+async function getLivro (id) {
   try {
-    return await Livro.findByPk(id, { raw: true });
+    return await Livro.findByPk(id, { raw: true })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function getLivrosByAutorId(autorId) {
+async function getLivrosByAutorId (autorId) {
   try {
     return await Livro.findAll({
       include: [
         {
           model: Autor,
           where: {
-            autorId,
-          },
-        },
-      ],
-    });
+            autorId
+          }
+        }
+      ]
+    })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function deleteLivro(id) {
+async function deleteLivro (id) {
   try {
     await Livro.destroy({
       where: {
-        livroId: id,
-      },
-    });
+        livroId: id
+      }
+    })
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
-async function updateLivro(livro) {
+async function updateLivro (livro) {
   try {
     await Livro.update({
       valor: livro.valor,
@@ -69,12 +69,12 @@ async function updateLivro(livro) {
     },
     {
       where: {
-        livroId: livro.livroId,
-      },
-    });
-    return await getLivro(livro.livroId);
+        livroId: livro.livroId
+      }
+    })
+    return await getLivro(livro.livroId)
   } catch (err) {
-    throw err;
+    throw err
   }
 }
 
@@ -84,5 +84,5 @@ export default {
   getLivro,
   getLivrosByAutorId,
   updateLivro,
-  deleteLivro,
-};
+  deleteLivro
+}

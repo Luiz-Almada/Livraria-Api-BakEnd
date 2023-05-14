@@ -1,30 +1,30 @@
-import Sequelize from "sequelize";
-import db from "../repositories/db.js";
-import Livro from "./livro.model.js";
-import Cliente from "./cliente.model.js";
+import Sequelize from 'sequelize'
+import db from '../repositories/db.js'
+import Livro from './livro.model.js'
+import Cliente from './cliente.model.js'
 
 const Venda = db.define(
-  "vendas",
+  'vendas',
   {
     vendaId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     valor: {
       type: Sequelize.DOUBLE,
-      allowNull: false,
+      allowNull: false
     },
     data: {
       type: Sequelize.DATE,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   },
   { underscored: true }
-);
+)
 
-Venda.belongsTo(Cliente, { foreignKey: "clienteId" });
-Venda.belongsTo(Livro, { foreignKey: "livroId" });
+Venda.belongsTo(Cliente, { foreignKey: 'clienteId' })
+Venda.belongsTo(Livro, { foreignKey: 'livroId' })
 
-export default Venda;
+export default Venda

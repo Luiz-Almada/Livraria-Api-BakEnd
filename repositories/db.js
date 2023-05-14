@@ -1,17 +1,17 @@
-import Sequelize from "sequelize";
+import Sequelize from 'sequelize'
 
 const sequelize = new Sequelize(process.env.ELEPHANT_SQL_STRING_CONNECTION, {
-  dialect: "postgres",
+  dialect: 'postgres',
   // host: 'localhost',
   // port: 49153,
   // database: 'consulta_credito',
   // username: 'postgres',
   // password: 'mysecretpassword',
   // storage: "./src/database.sqlite",
-  logging: false,  
+  logging: false,
   define: {
-    timestamps: false,
-  },
-});
+    timestamps: false
+  }
+})
 
-export default sequelize;
+export default sequelize

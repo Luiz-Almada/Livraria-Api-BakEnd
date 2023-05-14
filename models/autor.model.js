@@ -1,29 +1,29 @@
-import Sequelize from "sequelize";
-import db from "../repositories/db.js";
+import Sequelize from 'sequelize'
+import db from '../repositories/db.js'
 
 const Autor = db.define(
-  "autores",
+  'autores',
   {
     autorId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     nome: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     telefone: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   },
   { underscored: true }
-);
+)
 
-export default Autor;
+export default Autor

@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const AvaliacaoSchema = new mongoose.Schema(
   {
     nome: String,
     nota: Number,
     avaliacao: String
-  }, { collection: "livroInfo"}
-);
+  }, { collection: 'livroInfo' }
+)
 
-export default AvaliacaoSchema;
+export default AvaliacaoSchema
