@@ -14,4 +14,4 @@ const sequelize = new Sequelize(process.env.ELEPHANT_SQL_STRING_CONNECTION, {
   }
 })
 
-export default sequelize
+export default sequelize;

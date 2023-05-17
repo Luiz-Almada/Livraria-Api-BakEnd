@@ -28,56 +28,70 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(cors())
 
-async function getAutenticacao (email, senha) {
-  const usuarioAutenticado = await autenticacaoService.getAutenticaUsuario(email, senha);
-  if (!usuarioAutenticado) {
-    res.status(403).send('Usuário ou senha inválidos!')
-  }
-  return usuarioAutenticado
-}
-
-// function getRole(){
-
+// async function getRole(username) {
+//   if (username == 'admin') {
+//     return 'admin';
+//   }
+//   const usuarioAutorizado = await autenticacaoService.getAutorizacao(username);
+//   if (usuarioAutorizado == null) {
+//     //res.status(403).send('Usuário não encontrado!')
+//     //throw new Error({ message: 'Usuário não encontrado!'})
+//     return null;
+//   } 
+//   else {
+//     return 'user'
+//   }
 // }
 
-function authorize (...allowed) {
-  // const isAllowed = usuarioAutenticado => allowed.indexOf(usuarioAutenticado) > -1;
+// async function authorize(...allowed) {
 
-  return async (req, res, next) => {
-    if (req.auth.user) {
-      if(req.auth.user == 'admin' && req.auth.password == 'desafio-igti-nodejs') {
-        next();
-        return true;
-      }
-      const usuarioAutenticado = await getAutenticacao(req.auth.user, req.auth.password);
-      if (usuarioAutenticado) {
-        next();
-        return true;
-      } else {
-        res.status(401).send('Acesso negado!');
-      }
-    } else {
-      res.status(403).send('Usuário não encontrado!');
-    }
-  }
-}
+//   const isAllowed = role => allowed.indexOf(role) > -1;
+
+//   return async (req, res, next) => {
+//       if (req.auth.user) {
+//           const role = await getRole(req.auth.user);
+//           if (role == null) {
+//             res.status(403).send('Usuário não encontrado!');
+//           }
+//           else if (isAllowed(role)) {
+//             next();
+//           } 
+//           else
+//           {
+//               res.status(401).send('Acesso negado ao Perfil!');
+//           }  
+//       } else {
+//         res.status(403).send('Usuário não encontrado!');
+//       }
+//   }
+// };
+
 
 app.use(basicAuth({
-  authorizer: async (username, password) => {
-    const userMatches = basicAuth.safeCompare(username, 'admin');
-    const pwdMatches = basicAuth.safeCompare(password, 'desafio-igti-nodejs');
-    if (userMatches && pwdMatches) {
-      return true;
-    }
-    const usuarioAutenticado = await autenticacaoService.getAutenticaUsuario(username, password)
-    if (usuarioAutenticado) {
-      return true;
-    }
-    return false;
-  }
-}))
+    authorizer: (username, password) => {
+      let userMatches = false;
+      let pwdMatches = false;
+      let user2Matches = false;
+      let pwd2Matches = false;
 
-app.use('/cliente', authorize('admin'), clientesRouter)
+      if (username == 'admin' && password == 'desafio-igti-nodejs') {
+        userMatches = basicAuth.safeCompare(username, 'admin');
+        pwdMatches = basicAuth.safeCompare(password, 'desafio-igti-nodejs');
+      }
+ 
+      const usuarioAutenticado = autenticacaoService.autentica(username, password);
+
+      if (usuarioAutenticado !== null) {
+       user2Matches = basicAuth.safeCompare(username, usuarioAutenticado.email);
+       pwd2Matches = basicAuth.safeCompare(password, usuarioAutenticado.senha);
+      }
+
+      return userMatches && pwdMatches || user2Matches && pwd2Matches;
+    }
+  })
+)
+
+app.use('/cliente', clientesRouter)
 app.use('/autor', autoresRouter)
 app.use('/livro', livrosRouter)
 app.use('/venda', vendasRouter)

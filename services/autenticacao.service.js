@@ -1,9 +1,15 @@
 import ClienteRepository from '../repositories/cliente.repository.js'
 
-async function getAutenticaUsuario (email, senha) {
-  return await ClienteRepository.getAutenticaUsuario(email, senha)
+function autentica (email, senha) {
+  const usuarioAutenticado = ClienteRepository.autentica(email, senha);
+  return usuarioAutenticado;
+}
+
+async function getAutorizacao (email) {
+  return await ClienteRepository.getAutorizacao(email)
 }
 
 export default {
-  getAutenticaUsuario
+  autentica,
+  getAutorizacao
 }

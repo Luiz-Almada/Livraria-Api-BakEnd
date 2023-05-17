@@ -1,3 +1,5 @@
+import {describe, expect, it} from '@jest/globals'
+
 const supertest = require('supertest');
 const request = supertest('http://localhost:5678');
 

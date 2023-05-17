@@ -53,10 +53,13 @@ async function updateCliente (cliente) {
   }
 }
 
-async function getAutenticaUsuario (email, senha) {
+function autentica (email, senha) {
   try {
-    const usuarioAutenticado = await Cliente.findOne(
+    const usuarioAutenticado = Cliente.findOne(
       {
+        attributes: [
+        'email', 'senha'
+        ],
         where:
         {
           email,
@@ -65,11 +68,30 @@ async function getAutenticaUsuario (email, senha) {
       }
     )
 
-    if (usuarioAutenticado) {
-      return true;
+    if (usuarioAutenticado !== null ) {
+      return usuarioAutenticado;
     }
-    //throw new Error({ message: 'Usuário ou senha inválidos!' });
-    return false;
+    return null;
+  } catch (err) {
+    throw err
+  }
+}
+
+async function getAutorizacao (email) {
+  try {
+    const usuarioAutenticado = await Cliente.findOne(
+      {
+        where:
+        {
+          email
+        }
+      }
+    )
+
+    if (usuarioAutenticado !== null) {
+      return usuarioAutenticado;
+    }
+    return null;
   } catch (err) {
     throw err
   }
@@ -81,5 +103,6 @@ export default {
   getCliente,
   updateCliente,
   deleteCliente,
-  getAutenticaUsuario
+  autentica,
+  getAutorizacao
 }
