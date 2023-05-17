@@ -53,9 +53,9 @@ async function updateCliente (cliente) {
   }
 }
 
-function autentica (email, senha) {
+async function autentica (email, senha) {
   try {
-    const usuarioAutenticado = Cliente.findOne(
+    const usuarioAutenticado = await Cliente.findOne(
       {
         attributes: [
         'email', 'senha'
@@ -68,10 +68,10 @@ function autentica (email, senha) {
       }
     )
 
-    if (usuarioAutenticado !== null ) {
+    //if (usuarioAutenticado !== null ) {
       return usuarioAutenticado;
-    }
-    return null;
+    //}
+    //return null;
   } catch (err) {
     throw err
   }

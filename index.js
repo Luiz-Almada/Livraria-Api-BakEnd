@@ -69,27 +69,64 @@ app.use(cors())
 
 app.use(basicAuth({
     authorizer: (username, password) => {
-      let userMatches = false;
-      let pwdMatches = false;
-      let user2Matches = false;
-      let pwd2Matches = false;
+      // let userMatches = false;
+      // let pwdMatches = false;
+      // let user2Matches = false;
+      // let pwd2Matches = false;
+      // let usuarioAutenticado;
 
-      if (username == 'admin' && password == 'desafio-igti-nodejs') {
-        userMatches = basicAuth.safeCompare(username, 'admin');
-        pwdMatches = basicAuth.safeCompare(password, 'desafio-igti-nodejs');
-      }
- 
-      const usuarioAutenticado = autenticacaoService.autentica(username, password);
+      // if (username == 'admin' && password == 'desafio-igti-nodejs') {
+      //   userMatches = basicAuth.safeCompare(username, 'admin');
+      //   pwdMatches = basicAuth.safeCompare(password, 'desafio-igti-nodejs');
+      // }
 
-      if (usuarioAutenticado !== null) {
-       user2Matches = basicAuth.safeCompare(username, usuarioAutenticado.email);
-       pwd2Matches = basicAuth.safeCompare(password, usuarioAutenticado.senha);
-      }
+      // user2Matches = basicAuth.safeCompare(username, 'aadaaddsads');
+      // pwd2Matches = basicAuth.safeCompare(password, '13141421424124');
 
-      return userMatches && pwdMatches || user2Matches && pwd2Matches;
+   
+      
+      // user2Matches = basicAuth.safeCompare(username, 'franvieira0@gmail.com');
+      // pwd2Matches = basicAuth.safeCompare(password, 'kW1bnjci7');
+
+
+      //const usuario = autenticacaoService.autentica(username, password).then('usuarioAutenticado');
+
+      // function myDisplayer(some) {
+      //   document.getElementById("demo").innerHTML = some;
+      // }
+      
+      // let myPromise = new Promise(function(myResolve, myReject) {
+      //   let x = 0;
+      //   if (x == 0) {
+      //     myResolve("OK");
+      //   } else {
+      //     myReject("Error");
+      //   }
+      // });
+      
+      // myPromise.then(
+      //   function(value) {true},
+      //   function(error) {false}
+      // );
+
+      //usuarioAutenticado = await autenticacaoService.autentica(username, password);
+
+      // if (usuarioAutenticado !== null) {
+      // //  user2Matches = basicAuth.safeCompare(username, usuarioAutenticado.email);
+      // //  pwd2Matches = basicAuth.safeCompare(password, usuarioAutenticado.senha);
+      // }
+
+
+      //return true; //userMatches && pwdMatches || user2Matches && pwd2Matches;
+      const teste = autorizar(username, password)
+      return teste;
     }
   })
 )
+
+async function autorizar(username, password) {
+  return await autenticacaoService.autentica(username, password);
+}
 
 app.use('/cliente', clientesRouter)
 app.use('/autor', autoresRouter)
