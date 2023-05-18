@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.post('/', realizadaAutenticacao(), can(), VendaController.createVenda)
 router.get('/', realizadaAutenticacao(), can(), VendaController.getVendas)
+router.get('/', realizadaAutenticacao(), can(), VendaController.getVendas)
 router.get('/:id', realizadaAutenticacao(), is('admin'), VendaController.getVenda)
 router.delete('/:id', realizadaAutenticacao(), is('admin'), VendaController.deleteVenda)
 router.put('/', realizadaAutenticacao(), is('admin'), VendaController.updateVenda)

@@ -23,6 +23,9 @@ async function deleteCliente (id) {
 }
 
 async function updateCliente (cliente) {
+  if (cliente.clienteId != global.usuarioId && global.usuarioId > 0) {
+    throw new Error('O usuário só pode atualizar seus próprios dados!')
+  }
   return await ClienteRepository.updateCliente(cliente)
 }
 

@@ -11,6 +11,11 @@ async function createLivro (livro) {
 }
 
 async function getLivros (autorId) {
+
+  if (!autorId && global.usuarioId > 0) {
+    throw new Error('O usuário só pode consultar livros de um autor específico!')
+  }
+
   if (autorId) {
     return await LivroRepository.getLivrosByAutorId(autorId)
   }

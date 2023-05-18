@@ -8,6 +8,8 @@ import autoresRouter from './routes/autor.route.js'
 import livrosRouter from './routes/livro.route.js'
 import vendasRouter from './routes/venda.route.js'
 
+global.usuarioId = 0;
+
 const { combine, timestamp, label, printf } = winston.format
 const myFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label} ${level} ${message}] `

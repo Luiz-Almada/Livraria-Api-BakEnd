@@ -3,6 +3,9 @@ import ClienteRepository from '../repositories/cliente.repository.js'
 import LivroRepository from '../repositories/livro.repository.js'
 
 async function createVenda (venda) {
+  if (venda.clienteId != global.usuarioId && global.usuarioId > 0) {
+    throw new Error('O cliente não pode registrar venda (comprar) em nome de outro cliente!')
+  }  
   let error = ''
   if (!await ClienteRepository.getCliente(venda.clienteId)) {
     error = 'O clienteId informado não existe.'
@@ -26,6 +29,9 @@ async function createVenda (venda) {
 }
 
 async function getVendas (clienteId, livroId, autorId) {
+  if (clienteId != global.usuarioId && global.usuarioId > 0) {
+    throw new Error('O cliente só pode consultar suas próprias vendas (compras)!')
+  }
   if (clienteId) {
     return await VendaRepository.getVendasByClienteId(clienteId)
   }
