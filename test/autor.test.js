@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@jest/globals'
+//import {describe, expect, it} from '@jest/globals'
 
 const supertest = require('supertest');
 const request = supertest('http://localhost:5678');
@@ -101,5 +101,6 @@ test('Autenticado venda: 2) Criar uma venda para o usuário e livro criados para
 
 test('Autenticado venda: 3) Verificar se ela foi salva corretamente.', async () => {
   const res = await request.get(`/venda/${vendaIdResponse}`).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
+  //const res = await request.get(`/venda/${vendaIdResponse}`).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).vendaId).toBe(vendaIdResponse)
 })
