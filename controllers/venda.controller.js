@@ -1,4 +1,6 @@
 import VendaService from '../services/venda.service.js'
+import { can, is } from "../middleware/authorize.js";
+
 async function createVenda (req, res, next) {
   let venda = req.body
 

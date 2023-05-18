@@ -1,5 +1,7 @@
 import express from 'express'
 import AutorController from '../controllers/autor.controller.js'
+import { realizadaAutenticacao } from "../middleware/authenticated.js";
+import { can, is } from "../middleware/authorize.js";
 
 const router = express.Router()
 
