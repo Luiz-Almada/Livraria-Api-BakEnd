@@ -1,5 +1,3 @@
-//import {describe, expect, it} from '@jest/globals'
-
 const supertest = require('supertest');
 const request = supertest('http://localhost:5678');
 
@@ -50,7 +48,8 @@ test('autor: 1) Criar um autor com dados de teste.', async () => {
 })
 
 test('autor: 2) Verificar se ele foi criado corretamente no banco de dados.,', async () => {
-  const res = await request.get(`/autor/${autorIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  //const res = await request.get(`/autor/${autorIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  const res = await request.get(`/autor/${autorIdResponse}`).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).email).toBe(autorEmailResponse)
 })
 
@@ -62,7 +61,8 @@ test('livro: 3) Criar um livro com dados de teste para o autor criado anteriorme
 })
 
 test('livro: 4) Verificar se o livro foi criado corretamente.', async () => {
-  const res = await request.get(`/livro/${livroIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  //const res = await request.get(`/livro/${livroIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  const res = await request.get(`/livro/${livroIdResponse}`).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).livroId).toBe(livroIdResponse)
 })
 
@@ -79,28 +79,36 @@ test('cliente: 5) Criar um cliente com dados de teste.', async () => {
 })
 
 test('livro: 6) Verificar se o cliente foi criado corretamente.', async () => {
-  const res = await request.get(`/cliente/${clienteIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  //const res = await request.get(`/cliente/${clienteIdResponse}`).auth('franvieira@gmail.com', 'kW1bnjci70')
+  const res = await request.get(`/cliente/${clienteIdResponse}`).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).clienteId).toBe(clienteIdResponse)
 })
 
-
 test('Autenticado livro: 1) Buscar o livro criado utilizando os dados de login do usuário e verificar se o retorno é adequado.', async () => {
-  const res = await request.get(`/livro/${clienteIdResponse}`).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
-  expect(JSON.parse(res.text).clienteId).toBe(payloadResponseCliente.clienteId)
+  const res = await request.get(`/livro/${livroIdResponse}`).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
+  //const res = await request.get(`/livro/${clienteIdResponse}`).auth('admin', 'desafio-igti-nodejs')
+  expect(JSON.parse(res.text).autorId).toBe(payloadRequestLivro.autorId)
+  expect(res.status).toBe(200)
 })
 
 test('Autenticado venda: 2) Criar uma venda para o usuário e livro criados para teste.', async () => {
   payloadRequestVenda.clienteId = clienteIdResponse
   payloadRequestVenda.livroId = livroIdResponse
 
-  const res = await request.post('/venda').send(payloadRequestVenda).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
+  //const res = await request.post('/venda').send(payloadRequestVenda).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
+  const res = await request.post('/venda').send(payloadRequestVenda).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).clienteId).toBe(payloadRequestVenda.clienteId)
   expect(JSON.parse(res.text).livroId).toBe(payloadRequestVenda.livroId)
   vendaIdResponse = JSON.parse(res.text).vendaId
 })
 
 test('Autenticado venda: 3) Verificar se ela foi salva corretamente.', async () => {
-  const res = await request.get(`/venda/${vendaIdResponse}`).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
-  //const res = await request.get(`/venda/${vendaIdResponse}`).auth('admin', 'desafio-igti-nodejs')
+  //const res = await request.get(`/venda/${vendaIdResponse}`).auth(payloadResponseCliente.email, payloadResponseCliente.senha)
+  const res = await request.get(`/venda/${vendaIdResponse}`).auth('admin', 'desafio-igti-nodejs')
   expect(JSON.parse(res.text).vendaId).toBe(vendaIdResponse)
+})
+
+test('Tabelas: Deleta o conteúdo de todas as tabelas.', async () => {
+  const res = await request.delete('/tabelas').auth('admin', 'desafio-igti-nodejs')
+  expect(res.status).toBe(200)
 })

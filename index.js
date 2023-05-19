@@ -7,6 +7,7 @@ import clientesRouter from './routes/cliente.route.js'
 import autoresRouter from './routes/autor.route.js'
 import livrosRouter from './routes/livro.route.js'
 import vendasRouter from './routes/venda.route.js'
+import limpaTabelasRouter from './routes/limpa-tabelas.route.js'
 
 global.usuarioId = 0;
 
@@ -32,6 +33,7 @@ app.use('/cliente', clientesRouter)
 app.use('/autor', autoresRouter)
 app.use('/livro', livrosRouter)
 app.use('/venda', vendasRouter)
+app.use('/tabelas', limpaTabelasRouter)
 app.use((err, req, res, next) => {
   logger.error(`${req.method} ${req.baseUrl} - ${err.message}`)
   res.status(400).send({ error: err.message })
